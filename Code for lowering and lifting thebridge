@@ -1,0 +1,63 @@
+// Define the limit switch pin
+#define LIMIT_SWITCH_PIN 13
+
+
+// Define the pins used to control the motor
+#define ena 5
+#define in1 6
+#define in2 7
+
+int buttonState;
+int Speed_value =255;  
+
+
+void setup()  
+{
+  Serial.begin(9600);
+  pinMode(LIMIT_SWITCH_PIN, INPUT);
+  pinMode(ena, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+
+  //buttonState = digitalRead(LIMIT_SWITCH_PIN);
+
+}
+void loop() {
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(LIMIT_SWITCH_PIN);
+  Serial.println(buttonState);
+  if (buttonState == HIGH)
+  {
+    Serial.println("down");
+    digitalWrite(in1,LOW);
+    digitalWrite(in2,HIGH);
+    analogWrite(ena, Speed_value);   //PWM Speed Control 
+  }
+ 
+  else if(buttonState == LOW)
+  {
+    Serial.println("STOP");
+    digitalWrite(in1,LOW);
+    digitalWrite(in2,LOW);
+    analogWrite(ena, 0);   //PWM Speed Control 
+      // turn the LED on (HIGH is the voltage level)
+  }
+  //Code for bridge down
+  if (buttonState == HIGH)
+  {
+    Serial.println("down");
+    digitalWrite(in1,LOW);
+    digitalWrite(in2,HIGH);
+    analogWrite(ena, Speed_value);   //PWM Speed Control 
+  }
+ 
+  else if(buttonState == LOW)
+  {
+    Serial.println("STOP");
+    digitalWrite(in1,LOW);
+    digitalWrite(in2,LOW);
+    analogWrite(ena, 0);   //PWM Speed Control 
+      // turn the LED on (HIGH is the voltage level)
+  }
+
+}
